@@ -1,0 +1,39 @@
+{
+  "title": "Crispy Honey-Garlic Tofu",
+  "prep_steps": ["Preheat oven to 450°F", "Spray baking sheet with cooking spray"],
+  "ingredients": [
+    {"id": "milk", "name": "plant-based or regular milk", "quantity": "1/3 cup", "group": "breading"},
+    {"id": "flour", "name": "all-purpose flour", "quantity": "1/3 cup", "group": "breading"},
+    {"id": "garlic_powder", "name": "granulated garlic", "quantity": "1/2 tsp", "group": "breading"},
+    {"id": "onion_powder", "name": "onion powder", "quantity": "1/2 tsp", "group": "breading"},
+    {"id": "paprika", "name": "paprika", "quantity": "1/2 tsp", "group": "breading"},
+    {"id": "salt1", "name": "salt", "quantity": "1/2 tsp", "group": "breading"},
+    {"id": "pepper", "name": "black pepper", "quantity": "1/2 tsp", "group": "breading"},
+    {"id": "tofu", "name": "super firm or extra firm tofu, cubed", "quantity": "1 (16 oz) package", "group": "breading"},
+    {"id": "panko", "name": "panko breadcrumbs", "quantity": "1 cup", "group": "breading"},
+    {"id": "honey", "name": "honey", "quantity": "1/3 cup", "group": "sauce"},
+    {"id": "water_sauce", "name": "water", "quantity": "1/3 cup", "group": "sauce"},
+    {"id": "tamari", "name": "tamari or soy sauce", "quantity": "1/4 cup", "group": "sauce"},
+    {"id": "sesame_oil", "name": "toasted sesame oil", "quantity": "2 Tbs", "group": "sauce"},
+    {"id": "rice_vinegar", "name": "rice wine vinegar", "quantity": "1 Tbs", "group": "sauce"},
+    {"id": "chili_garlic_paste", "name": "chili garlic paste", "quantity": "1-2 tsp", "group": "sauce"},
+    {"id": "garlic_cloves", "name": "garlic cloves, minced", "quantity": "2-3 large", "group": "sauce"},
+    {"id": "cornstarch", "name": "cornstarch", "quantity": "2 tsp", "group": "sauce"},
+    {"id": "salt2", "name": "salt", "quantity": "pinch", "group": "sauce"},
+    {"id": "green_onions", "name": "green onions, sliced", "quantity": "to garnish"},
+    {"id": "sesame_seeds", "name": "toasted sesame seeds", "quantity": "to garnish"}
+  ],
+  "dividers": [
+    {"before_id": "honey", "label": "Medium bowl — mixing & coating in sauce", "group": "sauce"}
+  ],
+  "steps": [
+    {"id": "batter", "action": "whisk batter", "inputs": ["milk", "flour", "garlic_powder", "onion_powder", "paprika", "salt1", "pepper"]},
+    {"id": "coattofu", "action": "coat tofu in batter", "inputs": ["batter", "tofu"]},
+    {"id": "coatpanko", "action": "coat in panko", "inputs": ["coattofu", "panko"]},
+    {"id": "bake1", "action": "bake, flipping halfway", "inputs": ["coatpanko"], "params": {"temp": "450°F", "time": "15-20 min"}},
+    {"id": "mixsauce", "action": "combine sauce", "inputs": ["honey", "water_sauce", "tamari", "sesame_oil", "rice_vinegar", "chili_garlic_paste", "garlic_cloves", "cornstarch", "salt2"]},
+    {"id": "simmersauce", "action": "simmer until thickened", "inputs": ["mixsauce"], "params": {"time": "3-5 min"}},
+    {"id": "combine", "action": "toss tofu in sauce", "inputs": ["bake1", "simmersauce"]},
+    {"id": "garnish", "action": "garnish & serve", "inputs": ["combine", "green_onions", "sesame_seeds"]}
+  ]
+}

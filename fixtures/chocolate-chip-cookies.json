@@ -1,0 +1,24 @@
+{
+  "title": "Chocolate Chip Cookies",
+  "prep_steps": ["Preheat oven to 375°F", "Line two sheet pans with parchment"],
+  "ingredients": [
+    {"id": "butter", "name": "unsalted butter, softened", "quantity": "1 cup"},
+    {"id": "brown_sugar", "name": "packed light brown sugar", "quantity": "3/4 cup"},
+    {"id": "sugar", "name": "granulated sugar", "quantity": "3/4 cup"},
+    {"id": "vanilla", "name": "vanilla extract", "quantity": "1 tsp"},
+    {"id": "eggs", "name": "large eggs", "quantity": "2"},
+    {"id": "flour", "name": "all-purpose flour", "quantity": "2 1/4 cups"},
+    {"id": "soda", "name": "baking soda", "quantity": "1 tsp"},
+    {"id": "salt", "name": "salt", "quantity": "1 tsp"},
+    {"id": "chips", "name": "semisweet chocolate chips", "quantity": "2 cups"},
+    {"id": "nuts", "name": "chopped nuts", "quantity": "1 cup"}
+  ],
+  "steps": [
+    {"id": "cream", "action": "beat until creamy", "inputs": ["butter", "brown_sugar", "sugar", "vanilla"]},
+    {"id": "addeggs", "action": "add eggs one at a time", "inputs": ["cream", "eggs"]},
+    {"id": "dry", "action": "beat in dry ingredients", "inputs": ["addeggs", "flour", "soda", "salt"]},
+    {"id": "stirchips", "action": "stir in chips", "inputs": ["dry", "chips"]},
+    {"id": "stirnuts", "action": "stir in nuts", "inputs": ["stirchips", "nuts"]},
+    {"id": "bake", "action": "drop by spoonfuls & bake", "inputs": ["stirnuts"], "params": {"temp": "375°F", "time": "9-11 min"}}
+  ]
+}

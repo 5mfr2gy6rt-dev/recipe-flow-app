@@ -1,0 +1,34 @@
+{
+  "title": "Punjabi Chole (Chana Masala)",
+  "prep_steps": ["Soak chickpeas overnight, then drain"],
+  "ingredients": [
+    {"id": "oil", "name": "oil or ghee", "quantity": "3 Tbsp"},
+    {"id": "bay", "name": "bay leaf", "quantity": "1"},
+    {"id": "cinnamon", "name": "cinnamon stick", "quantity": "1-in piece"},
+    {"id": "cumin_seeds", "name": "cumin seeds", "quantity": "1 tsp"},
+    {"id": "onion", "name": "onion, finely chopped", "quantity": "2 medium"},
+    {"id": "ginger_garlic", "name": "ginger-garlic paste", "quantity": "1 Tbsp"},
+    {"id": "chilies", "name": "green chilies, slit", "quantity": "2"},
+    {"id": "tomato", "name": "tomatoes, pureed", "quantity": "3 medium"},
+    {"id": "turmeric", "name": "turmeric", "quantity": "1/2 tsp"},
+    {"id": "coriander", "name": "coriander powder", "quantity": "2 tsp"},
+    {"id": "chole_masala", "name": "chole masala", "quantity": "2 tsp"},
+    {"id": "chili_powder", "name": "red chili powder", "quantity": "1 tsp"},
+    {"id": "salt", "name": "salt", "quantity": "to taste"},
+    {"id": "chickpeas", "name": "chickpeas, soaked overnight", "quantity": "1 1/2 cups dried"},
+    {"id": "water", "name": "water", "quantity": "3 cups"},
+    {"id": "garam_masala", "name": "garam masala", "quantity": "1/2 tsp"},
+    {"id": "amchur", "name": "dried mango powder (amchur)", "quantity": "1 tsp"},
+    {"id": "cilantro", "name": "cilantro, chopped", "quantity": "1/4 cup"},
+    {"id": "lemon", "name": "lemon wedges", "quantity": "to serve"}
+  ],
+  "steps": [
+    {"id": "temper", "action": "heat oil & temper whole spices", "inputs": ["oil", "bay", "cinnamon", "cumin_seeds"]},
+    {"id": "fryonion", "action": "fry onion until golden", "inputs": ["temper", "onion"]},
+    {"id": "aromatics", "action": "add ginger-garlic & chilies", "inputs": ["fryonion", "ginger_garlic", "chilies"]},
+    {"id": "tomatoes", "action": "add tomato & ground spices, cook down", "inputs": ["aromatics", "tomato", "turmeric", "coriander", "chole_masala", "chili_powder", "salt"]},
+    {"id": "pressure", "action": "add chickpeas & water, pressure cook", "inputs": ["tomatoes", "chickpeas", "water"], "params": {"time": "25-30 min"}},
+    {"id": "finish", "action": "stir in garam masala & amchur, simmer", "inputs": ["pressure", "garam_masala", "amchur"], "params": {"time": "5 min"}},
+    {"id": "serve", "action": "garnish & serve", "inputs": ["finish", "cilantro", "lemon"]}
+  ]
+}

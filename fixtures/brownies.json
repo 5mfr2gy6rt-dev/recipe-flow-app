@@ -1,0 +1,23 @@
+{
+  "title": "Fudgy Brownies",
+  "prep_steps": ["Preheat oven to 350°F", "Butter and flour an 8x8-in pan"],
+  "ingredients": [
+    {"id": "butter", "name": "unsalted butter", "quantity": "4 oz (115 g)", "quantity_metric": "115 g"},
+    {"id": "chocolate", "name": "bittersweet chocolate, chopped", "quantity": "6 oz (170 g)", "quantity_metric": "170 g"},
+    {"id": "sugar", "name": "granulated sugar", "quantity": "1 1/4 cups (250 g)", "quantity_metric": "250 g"},
+    {"id": "vanilla", "name": "vanilla extract", "quantity": "2 tsp"},
+    {"id": "salt", "name": "fine sea salt", "quantity": "1/2 tsp"},
+    {"id": "eggs", "name": "large eggs", "quantity": "3"},
+    {"id": "flour", "name": "all-purpose flour", "quantity": "3/4 cup (95 g)", "quantity_metric": "95 g"},
+    {"id": "cocoa", "name": "cocoa powder", "quantity": "2 Tbsp"},
+    {"id": "walnuts", "name": "toasted walnuts, chopped", "quantity": "1 cup"}
+  ],
+  "steps": [
+    {"id": "melt", "action": "melt together", "inputs": ["butter", "chocolate"]},
+    {"id": "stir1", "action": "stir in", "inputs": ["melt", "sugar", "vanilla", "salt"]},
+    {"id": "beat", "action": "beat in eggs one at a time", "inputs": ["stir1", "eggs"]},
+    {"id": "fold", "action": "fold in", "inputs": ["beat", "flour", "cocoa"]},
+    {"id": "foldnuts", "action": "fold in walnuts", "inputs": ["fold", "walnuts"]},
+    {"id": "bake", "action": "bake", "inputs": ["foldnuts"], "params": {"temp": "350°F", "time": "30-40 min", "pan": "8x8-in"}}
+  ]
+}

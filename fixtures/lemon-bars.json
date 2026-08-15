@@ -1,0 +1,28 @@
+{
+  "title": "Lemon Bars",
+  "prep_steps": ["Preheat oven to 350°F", "Line a 9x13-in pan with parchment"],
+  "ingredients": [
+    {"id": "crust_butter", "name": "unsalted butter, softened", "quantity": "1 cup", "group": "crust"},
+    {"id": "crust_sugar", "name": "powdered sugar", "quantity": "1/2 cup", "group": "crust"},
+    {"id": "crust_salt", "name": "salt", "quantity": "1/4 tsp", "group": "crust"},
+    {"id": "crust_flour", "name": "all-purpose flour", "quantity": "2 cups", "group": "crust"},
+    {"id": "eggs", "name": "large eggs", "quantity": "4", "group": "filling"},
+    {"id": "fill_sugar", "name": "granulated sugar", "quantity": "1 1/2 cups", "group": "filling"},
+    {"id": "fill_flour", "name": "all-purpose flour", "quantity": "1/4 cup", "group": "filling"},
+    {"id": "lemon_juice", "name": "fresh lemon juice", "quantity": "2/3 cup", "group": "filling"},
+    {"id": "lemon_zest", "name": "lemon zest", "quantity": "2 Tbsp", "group": "filling"},
+    {"id": "dusting", "name": "powdered sugar, for dusting", "quantity": "2 Tbsp"}
+  ],
+  "dividers": [
+    {"before_id": "eggs", "label": "Second bowl — lemon filling", "group": "filling"}
+  ],
+  "steps": [
+    {"id": "creamcrust", "action": "cream together", "inputs": ["crust_butter", "crust_sugar", "crust_salt"]},
+    {"id": "workflour", "action": "work in flour", "inputs": ["creamcrust", "crust_flour"]},
+    {"id": "pressbake", "action": "press into pan & bake", "inputs": ["workflour"], "params": {"temp": "350°F", "time": "20 min"}},
+    {"id": "whiskfilling", "action": "whisk filling", "inputs": ["eggs", "fill_sugar", "fill_flour", "lemon_juice", "lemon_zest"]},
+    {"id": "pour", "action": "pour filling over hot crust", "inputs": ["pressbake", "whiskfilling"]},
+    {"id": "bake2", "action": "bake until set", "inputs": ["pour"], "params": {"temp": "350°F", "time": "22-25 min"}},
+    {"id": "dust", "action": "cool & dust", "inputs": ["bake2", "dusting"]}
+  ]
+}

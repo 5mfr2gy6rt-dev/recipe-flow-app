@@ -1,0 +1,154 @@
+:root {
+  --line: #2f7d4f;
+  --bg: #fffef2;
+  --page: #fdf7d8;
+  --ink: #1a1a1a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background: #f2f0e6;
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  font-size: 14px;
+  padding: 7px 9px;
+  border: 1px solid #d8d4c4;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  min-width: 0;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid #2a78d6;
+  outline-offset: 1px;
+}
+
+.ghost-button {
+  font: inherit;
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--line);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.ghost-button:hover {
+  background: var(--line);
+  color: #fff;
+}
+
+.ghost-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+  background: #fff;
+  color: var(--line);
+}
+
+.ghost-button.small {
+  font-size: 12px;
+  padding: 5px 12px;
+  align-self: flex-start;
+}
+
+.seg {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border: none;
+  background: transparent;
+  color: #56554f;
+  cursor: pointer;
+}
+
+.seg + .seg {
+  border-left: 1px solid #e4e0d0;
+}
+
+.seg.on {
+  background: var(--line);
+  color: #fff;
+}
+
+.icon {
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  width: 24px;
+  height: 22px;
+  border: 1px solid #ddd9c9;
+  border-radius: 6px;
+  background: #fff;
+  color: #6b6a65;
+  cursor: pointer;
+  flex: none;
+}
+
+.icon:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.chip {
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #ddd9c9;
+  background: #fff;
+  color: #56554f;
+  cursor: pointer;
+}
+
+.chip.on {
+  background: var(--line);
+  border-color: var(--line);
+  color: #fff;
+}
+
+.chip.step-chip {
+  border-style: dashed;
+}
+
+.chip.step-chip.on {
+  border-style: solid;
+  background: #2a78d6;
+  border-color: #2a78d6;
+}
+
+@media print {
+  header,
+  .input-card,
+  .controls,
+  .recents,
+  .ghost-button {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+}
