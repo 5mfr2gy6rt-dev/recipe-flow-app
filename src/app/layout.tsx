@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Recipe flow diagrams",
+  title: "Recipe Flow Maker",
   description:
     "Turn a recipe into a merge-box flow diagram, and cook from an interactive checklist.",
 };

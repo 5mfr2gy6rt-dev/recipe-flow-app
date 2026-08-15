@@ -95,11 +95,10 @@ export default function Home() {
   return (
     <main>
       <header>
-        <h1>Recipe flow diagrams</h1>
+        <h1>Recipe Flow Maker</h1>
         <p className="tagline">
-          Paste a link, snap a photo, or drop in the text. You get a diagram that
-          shows <em>when</em> things get combined — and a checklist you can cook
-          from.
+          If you hate long recipes, add your recipe in any format to turn it
+          into a recipe flow chart
         </p>
       </header>
 
