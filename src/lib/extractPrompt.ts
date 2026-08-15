@@ -36,13 +36,17 @@ Check your own output before returning it: for every step, the set of ingredient
 
 Preserve quantities exactly as written in the source, including mixed imperial/metric like "4 oz (115 g)" — do not normalise or convert them in the "quantity" field. Optionally also fill "quantity_imperial" and "quantity_metric" with a clean conversion when one is unambiguous (weights and volumes with a plain number and unit); leave them out for things like "1 (16 oz) package", "2-3 large", or "to garnish".
 
-## Groups and dividers — only when the recipe genuinely uses separate bowls
+## Groups and dividers — give almost every recipe some colour
 
-Most recipes need NONE of this and should render plain, with no colour and no legend. Use it only when the recipe truly prepares something in a separate bowl/pan before combining: a sauce whisked on the side, a crust made before a filling, a marinade prepared separately.
+Tag ingredients into 2 (occasionally 3) short-named groups whenever there's a natural way to split them, so the diagram isn't left plain white/green by default:
+- If the recipe genuinely prepares something in a separate bowl/pan before combining — a sauce whisked on the side, a crust made before a filling, a marinade prepared separately — group by that: tag one bowl's ingredients with one short name and the other bowl's with another ("breading"/"sauce", "crust"/"filling").
+- Otherwise, if everything lands in one bowl, group by role instead: dry vs. wet ingredients for baking, aromatics vs. liquid for a braise or curry, base vs. mix-ins/garnish. Pick whatever split matches how the recipe itself talks about its ingredients — don't invent a distinction the recipe doesn't support.
+- Only leave a recipe ungrouped when the ingredient list is genuinely too short or undifferentiated for any split to mean anything (e.g. three ingredients that all get added the same way).
+- Group names appear in a legend, so keep them short and human-readable.
 
-When it applies:
-- Tag every ingredient of one bowl with "group": "<short-name>" and the other bowl's with a different short name ("breading"/"sauce", "crust"/"filling"). Group names appear in a legend, so keep them short and human-readable.
-- Add a "dividers" entry marking where the next bowl's ingredients begin: {"before_id": "<first ingredient id of that bowl>", "label": "Medium bowl — sauce", "group": "sauce"}. The divider and the group boundary describe the same place, so they must line up with the contiguous block.
+When groups apply:
+- Tag every ingredient with "group": "<short-name>".
+- If the split corresponds to an actual bowl/pan change, add a "dividers" entry marking where the next bowl's ingredients begin: {"before_id": "<first ingredient id of that bowl>", "label": "Medium bowl — sauce", "group": "sauce"}. The divider and the group boundary describe the same place, so they must line up with the contiguous block. Skip the divider when the split is by role within the same bowl — nothing physically happens at that boundary, so there's nothing to announce.
 - Never use more than ${MAX_GROUPS} groups. Beyond that the colours stop being reliably distinguishable for colourblind readers, and the app will refuse to colour the diagram at all. If a recipe seems to want more, merge the smaller ones.
 
 ## Things to flag rather than force
@@ -92,7 +96,7 @@ export const RECIPE_TOOL = {
             group: {
               type: "string",
               description:
-                "Only when the recipe genuinely uses a separate bowl for this set.",
+                "Short group name — a separate bowl/pan, or a role within one bowl (dry/wet, aromatics/liquid, base/mix-ins). Most recipes should get 2-3 groups; leave unset only when no natural split exists.",
             },
           },
           required: ["id", "name"],
@@ -100,7 +104,8 @@ export const RECIPE_TOOL = {
       },
       dividers: {
         type: "array",
-        description: "Optional banner rows marking where a new bowl starts.",
+        description:
+          "Optional banner rows marking where a new bowl starts. Omit for group splits that are just by role within the same bowl.",
         items: {
           type: "object",
           properties: {

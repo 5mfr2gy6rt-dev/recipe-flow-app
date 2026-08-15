@@ -41,6 +41,8 @@ interface CellOpts {
   fillOpacity?: number;
   stroke?: string;
   strokeWidth?: number;
+  /** Clip text to the box rect. Only step boxes need this — see fitStepFontSize. */
+  clip?: boolean;
 }
 
 function cell(
@@ -58,6 +60,7 @@ function cell(
     fillOpacity = 1.0,
     stroke = LINE_COLOR,
     strokeWidth = 2,
+    clip = false,
   } = opts;
   const parts = [
     `<rect x="${x}" y="${y0}" width="${w}" height="${h}" fill="${fill}" ` +
@@ -67,15 +70,42 @@ function cell(
   const lineH = size + 6;
   const startY = y0 + h / 2 - ((nLines - 1) * lineH) / 2 + size / 3;
   const weight = bold ? "600" : "400";
+  const textParts: string[] = [];
   textLines.forEach((line, i) => {
-    parts.push(
+    textParts.push(
       `<text x="${n(x + w / 2)}" y="${n(startY + i * lineH)}" font-family="${FONT}" ` +
         `font-size="${size}" font-weight="${weight}" fill="#1a1a1a" text-anchor="middle">${esc(
           line,
         )}</text>`,
     );
   });
+  if (clip) {
+    const clipId = `tc${Math.round(x)}_${Math.round(y0)}`;
+    parts.push(
+      `<clipPath id="${clipId}"><rect x="${x}" y="${y0}" width="${w}" height="${h}"/></clipPath>`,
+      `<g clip-path="url(#${clipId})">${textParts.join("")}</g>`,
+    );
+  } else {
+    parts.push(...textParts);
+  }
   return parts.join("");
+}
+
+/**
+ * A step's box height comes purely from the union of its input rows (the
+ * layout algorithm), never from its text, so a long action plus temp/time
+ * params can ask for more vertical room than the box has. Shrink the font
+ * first; cell()'s clip is the last-resort guarantee nothing visibly spills
+ * past the border even at the size floor.
+ */
+function fitStepFontSize(lineCount: number, h: number, ideal: number): number {
+  let size = ideal;
+  while (size > 10) {
+    const lineH = size + 6;
+    if (lineCount * lineH <= h - 10) break;
+    size -= 1;
+  }
+  return size;
 }
 
 export function buildSvg(
@@ -190,11 +220,17 @@ export function buildSvg(
     const y1 = oy + rowTop[step.bottom] + rowHeights[step.bottom];
     const h = y1 - y0;
     const lines = step.labelLines;
-    const size = lines.length > 2 ? 13 : 16;
+    const idealSize = lines.length > 2 ? 13 : 16;
+    const size = fitStepFontSize(lines.length, h, idealSize);
+    // Only clip when a box actually needed to shrink to fit — clip-path
+    // pushes a box onto its own compositing layer, which can perturb
+    // anti-aliasing by a channel or two even when nothing visibly changes.
+    // Leaving well-fitting boxes alone keeps them byte-for-byte unchanged.
+    const needsClip = size < idealSize;
     const groups = step.groups;
 
     if (!groups.length) {
-      svg.push(cell(x, y0, C.STEP_COL_WIDTH, h, lines, { bold: true, size }));
+      svg.push(cell(x, y0, C.STEP_COL_WIDTH, h, lines, { bold: true, size, clip: needsClip }));
     } else if (groups.length === 1) {
       const color = groupColors[groups[0]];
       svg.push(
@@ -205,6 +241,7 @@ export function buildSvg(
           fillOpacity: 1.0,
           stroke: color,
           strokeWidth: 3,
+          clip: needsClip,
         }),
       );
     } else {
@@ -229,6 +266,7 @@ export function buildSvg(
           fillOpacity: 1.0,
           stroke: MERGE_BORDER_COLOR,
           strokeWidth: 3,
+          clip: needsClip,
         }),
       );
     }

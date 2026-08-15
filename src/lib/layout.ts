@@ -414,7 +414,8 @@ export function computeLayout(
     const paramLines: string[] = [];
     for (const k of ["temp", "time", "pan"]) {
       if (params[k]) {
-        paramLines.push(k === "temp" ? displayTemp(params[k], units) : params[k]);
+        const value = k === "temp" ? displayTemp(params[k], units) : params[k];
+        paramLines.push(...wrapText(value, actionMaxChars));
       }
     }
     labelLines.push(...paramLines);
