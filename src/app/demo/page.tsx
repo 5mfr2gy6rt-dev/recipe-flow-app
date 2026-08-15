@@ -13,15 +13,16 @@ import cookies from "../../../fixtures/chocolate-chip-cookies.json";
 import tofu from "../../../fixtures/honey-garlic-tofu.json";
 import lemonBars from "../../../fixtures/lemon-bars.json";
 import chole from "../../../fixtures/punjabi-chole.json";
+import DishIcon, { type DishKind } from "@/components/DishIcon";
 import { encodeRecipe } from "@/lib/share";
 import type { Recipe } from "@/lib/types";
 
-const SAMPLES: { recipe: Recipe; note: string }[] = [
-  { recipe: brownies as Recipe, note: "The reference-photo shape — a simple top-to-bottom staircase." },
-  { recipe: cookies as Recipe, note: "A long staircase: one ingredient added at a time." },
-  { recipe: lemonBars as Recipe, note: "Two branches — crust made before the filling — with colour coding." },
-  { recipe: tofu as Recipe, note: "Breading and sauce made independently, combined at the end. Best cook-mode demo." },
-  { recipe: chole as Recipe, note: "Stovetop, long sequential build, wrapped phrase labels." },
+const SAMPLES: { recipe: Recipe; icon: DishKind }[] = [
+  { recipe: brownies as Recipe, icon: "brownies" },
+  { recipe: cookies as Recipe, icon: "cookies" },
+  { recipe: lemonBars as Recipe, icon: "lemon-bars" },
+  { recipe: tofu as Recipe, icon: "tofu" },
+  { recipe: chole as Recipe, icon: "chole" },
 ];
 
 export default function DemoPage() {
@@ -36,19 +37,15 @@ export default function DemoPage() {
   return (
     <main>
       <h1>Sample recipes</h1>
-      <p className="lede">
-        Open any of these to see the app working — no API key and no extraction
-        call. The recipe travels in the link itself.
-      </p>
       <ul>
         {SAMPLES.map((s, i) => (
           <li key={s.recipe.title}>
+            <DishIcon kind={s.icon} />
             {links[i] ? (
               <a href={links[i]}>{s.recipe.title}</a>
             ) : (
               <span className="pending">{s.recipe.title}</span>
             )}
-            <span className="note">{s.note}</span>
           </li>
         ))}
       </ul>
@@ -66,12 +63,6 @@ export default function DemoPage() {
           font-size: 24px;
           margin: 0 0 8px;
         }
-        .lede {
-          color: #56554f;
-          font-size: 15px;
-          line-height: 1.6;
-          margin: 0 0 26px;
-        }
         ul {
           list-style: none;
           margin: 0;
@@ -82,12 +73,13 @@ export default function DemoPage() {
         }
         li {
           display: flex;
-          flex-direction: column;
-          gap: 3px;
+          flex-direction: row;
+          align-items: center;
+          gap: 12px;
           background: #fffdf4;
           border: 1px solid #e4e0d0;
           border-radius: 12px;
-          padding: 14px 16px;
+          padding: 10px 16px;
         }
         a {
           color: #2f7d4f;
@@ -102,11 +94,6 @@ export default function DemoPage() {
           font-weight: 700;
           font-size: 16px;
           color: #a8a69e;
-        }
-        .note {
-          color: #6b6a65;
-          font-size: 13px;
-          line-height: 1.5;
         }
         .back {
           margin-top: 28px;

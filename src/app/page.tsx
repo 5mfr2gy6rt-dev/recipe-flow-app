@@ -107,7 +107,7 @@ export default function Home() {
         {error && <p className="error">{error}</p>}
         {!recipe && (
           <p className="try">
-            No API key set up yet? <a href="/demo">Try a sample recipe →</a>
+            <a href="/demo">Try a sample recipe →</a>
           </p>
         )}
       </section>

@@ -29,6 +29,7 @@ import {
   columnWidth,
   columnX,
   computeLayout,
+  wrapText,
 } from "@/lib/layout";
 import { loadProgress, saveProgress } from "@/lib/storage";
 import type { Recipe, UnitSystem } from "@/lib/types";
@@ -53,6 +54,31 @@ function dividerFontSize(
   const approxCharWidth = 0.54;
   const fits = (available - 28) / (label.length * approxCharWidth);
   return Math.max(9, Math.min(ideal, Math.floor(fits)));
+}
+
+/**
+ * Step boxes are a fixed height (the union of their input rows) — the text
+ * doesn't get to grow the box. Shrink the action text down to a floor so
+ * long phrases wrap to fit instead of spilling past the box's bottom edge.
+ */
+function stepFontSize(
+  width: number,
+  height: number,
+  action: string,
+  paramCount: number,
+  ideal: number,
+): number {
+  const availableWidth = Math.max(20, width - 12);
+  const availableHeight = Math.max(16, height - 12);
+  const paramsHeight = paramCount * 15;
+  let size = ideal;
+  while (size > 9) {
+    const maxChars = Math.max(6, Math.floor(availableWidth / (size * 0.54)));
+    const lines = wrapText(action, maxChars).length;
+    if (lines * size * 1.2 + paramsHeight <= availableHeight) break;
+    size -= 1;
+  }
+  return size;
 }
 
 export default function CookMode({ recipe, units, persist = true }: Props) {
@@ -293,6 +319,15 @@ export default function CookMode({ recipe, units, persist = true }: Props) {
                     background,
                     borderColor,
                     opacity: isDone ? 0.7 : 1,
+                    fontSize: collapsed
+                      ? undefined
+                      : stepFontSize(
+                          w,
+                          boxHeight,
+                          step.action,
+                          step.paramLines.length,
+                          compact ? 12.5 : 15,
+                        ),
                   }}
                 >
                   <span className="check">{isDone ? "✓" : ""}</span>
@@ -444,6 +479,10 @@ export default function CookMode({ recipe, units, persist = true }: Props) {
           white-space: normal;
           overflow-wrap: anywhere;
           line-height: 1.2;
+          /* Belt-and-braces: stepFontSize() shrinks text to fit the box's
+             fixed height, but this guarantees nothing ever visibly spills
+             past the border even at the font floor. */
+          overflow: hidden;
           transition:
             left 0.45s cubic-bezier(0.4, 0, 0.2, 1),
             width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
